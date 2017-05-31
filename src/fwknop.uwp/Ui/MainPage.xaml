@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="fwknop.uwp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:fwknop.uwp.Ui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+    <Page.Resources>
+        <local:BooleanErrorToBrushConverter x:Key="ErrorBrushConverter"/>
+    </Page.Resources>
+    <StackPanel VerticalAlignment="Top" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="758">
+
+
+        <TextBlock TextWrapping="Wrap" Text="Allow IP" Margin="10,5"/>
+
+        <TextBox Margin="10,5" Text="{x:Bind Settings.AllowIp, Mode=TwoWay}" InputScope="Url" BorderBrush="{x:Bind Settings.AllowIpValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}" ></TextBox>
+        <Button Margin="10,5" HorizontalAlignment="Right" Click="GetMyIpButton_Click">Get My IP</Button>
+        <TextBlock TextWrapping="Wrap" Text="Protocol/port" Margin="10,5"/>
+        <TextBox Margin="10,5" Text="{x:Bind Settings.ProtocolPort, Mode=TwoWay}" InputScope="Url" BorderBrush="{x:Bind Settings.ProtocolPortValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}"></TextBox>
+        <TextBlock TextWrapping="Wrap" Text="NAT Access (optional)" Margin="10,5"/>
+        <TextBox Margin="10,5" Text="{x:Bind Settings.NatAccess, Mode=TwoWay}" InputScope="AlphanumericFullWidth" IsSpellCheckEnabled="False" BorderBrush="{x:Bind Settings.NatAccessValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}"></TextBox>
+        <Button Content="Send" HorizontalAlignment="Right" Margin="10,5" Padding="30,5" VerticalAlignment="Top" Click="SendButton_Click"/>
+        <TextBlock TextWrapping="Wrap" x:Name="Log" Margin="10,5"  />     
+
+    </StackPanel>
+    <Page.BottomAppBar>
+        <CommandBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Setting" Label="Settings" Click="SettingsButton_Click"  />
+
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>
+
