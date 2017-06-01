@@ -1,7 +1,7 @@
 # fwknop.uwp
 Universal Windows Platform (UWP) application - Single Packet Authorization (SPA) client (an alternative to port knocking).
 
-See https:/www.cipherdyne.org/fwknop/docs/fwknop-tutorial.html for more details about Single Packet Authentication and fwknop . 
+See https://www.cipherdyne.org/fwknop/docs/fwknop-tutorial.html for more details about Single Packet Authentication and fwknop . 
 
 Client only supports AES (Rijndael) encryption and HMAC SHA-256 signing. Tested with fwknopd server 2.6.9 running on OpenWrt
 
