@@ -13,20 +13,31 @@
     <StackPanel VerticalAlignment="Top" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="758">
 
 
-        <TextBlock TextWrapping="Wrap" Text="Allow IP" Margin="10,5"/>
-
-        <TextBox Margin="10,5" Text="{x:Bind Settings.AllowIp, Mode=TwoWay}" InputScope="Url" BorderBrush="{x:Bind Settings.AllowIpValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}" ></TextBox>
+        <TextBlock TextWrapping="Wrap" Text="Allow IP" Margin="10,5" />
+        <AutoSuggestBox x:Name="AllowIp" Margin="10,5" Text="{x:Bind Settings.AllowIp, Mode=TwoWay}"
+                        ItemsSource="{x:Bind Settings.AllowIpHistory}" 
+                        BorderThickness="2"
+                        >
+            
+        </AutoSuggestBox>
         <Button Margin="10,5" HorizontalAlignment="Right" Click="GetMyIpButton_Click">Get My IP</Button>
+        <TextBlock TextWrapping="Wrap" Text="Profile" Margin="10,5"/>
+        <AutoSuggestBox x:Name="CurrentProfile"  Margin="10,5"  Text="{x:Bind Settings.CurrentProfile, Mode=TwoWay}" 
+                        ItemsSource="{x:Bind Settings.Profiles}"
+                        SuggestionChosen="CurrentProfile_SuggestionChosen"
+                        ></AutoSuggestBox>
         <TextBlock TextWrapping="Wrap" Text="Protocol/port" Margin="10,5"/>
         <TextBox Margin="10,5" Text="{x:Bind Settings.ProtocolPort, Mode=TwoWay}" InputScope="Url" BorderBrush="{x:Bind Settings.ProtocolPortValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}"></TextBox>
         <TextBlock TextWrapping="Wrap" Text="NAT Access (optional)" Margin="10,5"/>
         <TextBox Margin="10,5" Text="{x:Bind Settings.NatAccess, Mode=TwoWay}" InputScope="AlphanumericFullWidth" IsSpellCheckEnabled="False" BorderBrush="{x:Bind Settings.NatAccessValid, Mode=OneWay, Converter={StaticResource ErrorBrushConverter}}"></TextBox>
         <Button Content="Send" HorizontalAlignment="Right" Margin="10,5" Padding="30,5" VerticalAlignment="Top" Click="SendButton_Click"/>
-        <TextBlock TextWrapping="Wrap" x:Name="Log" Margin="10,5"  />     
+        <TextBlock TextWrapping="Wrap" x:Name="Log" Margin="10,5"  />
 
     </StackPanel>
     <Page.BottomAppBar>
         <CommandBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Delete" Label="Delete Current Profile" Click="DeleteCurrentProfileButton_Click"  />
+            <AppBarButton Icon="Delete" Label="Delete Current IP" Click="DeleteCurrentIpButton_Click"  />
             <AppBarButton Icon="Setting" Label="Settings" Click="SettingsButton_Click"  />
 
         </CommandBar>

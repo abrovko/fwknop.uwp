@@ -1,5 +1,7 @@
 ﻿using fwknop.uwp.Ui;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -36,10 +38,12 @@ namespace fwknop.uwp
             }
             try
             {
+                Settings.SaveCurrentProfile();
+
                 var spaGen = new SpaGenerator(Settings.Base64EncryptionKey, Settings.Base64HmacKey);
                 var msg = spaGen.CreateSpaPacket(Settings.ProtocolPort, Settings.AllowIp, Settings.NatAccess);
                 var sentBytes = await SocketUtil.SendAsync(Settings.SpaServer, Settings.SpaServerPort, msg);
-                Log.Text += $"{sentBytes} bytes sent.\n";
+                Log.Text = $"{sentBytes} bytes sent.\n" + Log.Text;
             }
             catch (Exception ex)
             {
@@ -72,6 +76,21 @@ namespace fwknop.uwp
             Log.Text += ex.ToString() + "\n";
             var dialog = new MessageDialog(ex.Message);
             await dialog.ShowAsync();
+        }
+            
+        private void DeleteCurrentProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.DeleteCurrentProfile();
+        }
+        private void DeleteCurrentIpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.DeleteCurrentIp();
+        }
+
+        private void CurrentProfile_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            Settings.CurrentProfile = args.SelectedItem as string;
+            Settings.LoadProfile();
         }
     }
 }
